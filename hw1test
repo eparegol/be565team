@@ -1,0 +1,32 @@
+x = randi(10,5,1) %returns a scalar number between 1 and whatever is in parentheses, format is (scalar range, rows, columns)  
+y = randi(10,5,1) %returns a scalar number between 1 and whatever is in parentheses format is (scalar range, rows, columns)
+p = [x,y]      %define a point using the x and y values obtained from randi 
+figure('Name', 'Test Figure')        %plot figure
+voronoi(x,y)   %plots the voronoi diagram (delauney triangulation already included, i think) 
+xlim([0 10]) 
+ylim([0 10])
+[v,c] = voronoin(p) %obtain voronoi vertices (v), and voronoi cells (c)
+v(1,:) = 0 
+       %cells will be in array form at this point, the cells should indicate the number of neighbours, ex, {1x3 double} means 3 neighbours 
+for i = 1 : length(c) %this looks at the cell arrays and looks for i index = 1
+    disp(c{i})        %displays the j index for each cell array in table form 
+end 
+
+[n, dim] = size (p)
+[v,c] = voronoin(p)
+vn = sparse (n,n)
+for i = 1 : n
+    for j = i + 1 : n 
+        s = size (intersect(c{i}, c{j}))
+        if (1 < s(2))
+            vn(i,j) = 1
+            vn(j,i) = 1
+        end
+    end
+end
+
+
+
+
+
+
